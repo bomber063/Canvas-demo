@@ -33,45 +33,45 @@ window.onresize = function () {
 // context.fillStyle = "grey"//颜色要在画的图形前面
 // context.fillRect(0, 0, 500, 500) 这里的矩形是从x,y坐标开始画，然后长宽分别为50
 
-// canvas.onclick=function(eee){
-//     console.log(eee)
-//     x=eee.clientX
-//     y=eee.clientY
-//     context.fillStyle = "red"//颜色要在画的图形前面
-//     context.fillRect(x, y, 50, 50) 这里的矩形是从x,y坐标开始画，然后长宽分别为50
-// }
+canvas.onclick=function(eee){
+    console.log(eee)
+    x=eee.clientX
+    y=eee.clientY
+    context.fillStyle = "red"//颜色要在画的图形前面
+    context.fillRect(x, y, 50, 50) //这里的矩形是从x,y坐标开始画，然后长宽分别为50
+}
 //以上34-40行代码只能监听鼠标点击一瞬间的事件，不能保持鼠标点击和鼠标松开的监听。
-// using = false
-// canvas.onmousedown = function (eee) {
-//     // console.log(eee)
-//     using = true
-//     if (using === true) {
-//         x = eee.clientX
-//         y = eee.clientY
-//         context.fillStyle = "red"//颜色要在画的图形前面
-//         context.fillRect(x, y, 50, 50) 这里的矩形是从x,y坐标开始画，然后长宽分别为50
-//     }
-//     else {
-//         using = false
-//     }
-// }
+using = false
+canvas.onmousedown = function (eee) {
+    // console.log(eee)
+    using = true
+    if (using === true) {
+        x = eee.clientX
+        y = eee.clientY
+        context.fillStyle = "red"//颜色要在画的图形前面
+        context.fillRect(x, y, 50, 50) //这里的矩形是从x,y坐标开始画，然后长宽分别为50
+    }
+    else {
+        using = false
+    }
+}
 
-// canvas.onmousemove = function (eee) {
-//     if (using == true) {
-//         console.log(eee)
-//         x = eee.clientX
-//         y = eee.clientY
-//         context.fillStyle = "red"//颜色要在画的图形前面
-//         context.fillRect(x, y, 50, 50) 这里的矩形是从x,y坐标开始画，然后长宽分别为50
-//     }
-//     else {
-//         using = false
-//     }
-// }
+canvas.onmousemove = function (eee) {
+    if (using == true) {
+        console.log(eee)
+        x = eee.clientX
+        y = eee.clientY
+        context.fillStyle = "red"//颜色要在画的图形前面
+        context.fillRect(x, y, 50, 50) //这里的矩形是从x,y坐标开始画，然后长宽分别为50
+    }
+    else {
+        using = false
+    }
+}
 
-// canvas.onmouseup = function (eee) {
-//     using = false
-// }
+canvas.onmouseup = function (eee) {
+    using = false
+}
 //以上代码如果拖动过快就会出现间隙，因为没有通过划线的API, 也就是下面的context.lineTo
 
 
