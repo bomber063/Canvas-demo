@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh-Hans">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <!-- 简写是meta:vp,但是现实的跟方方老师的不同,缺少最大和最小和用户自己放大 -->
     <!-- 如果不写上面的代码，那么如果屏幕缩小,也就是在手机上面显示的时候会按照电脑宽高显示，导致字体特别小 -->
     <!-- 可以通过document.documentElement.clientWidth和document.documentElement.clientHeight检查大小 -->
@@ -11,15 +13,28 @@
     <!-- initial-scale=1.0意思是初始缩放比例1:1 -->
     <!-- maximum-scale=1.0意思是最大的缩放比例1:1 -->
     <!-- minimum-scale=1.0意思是最小的缩放比例1:1 -->
-
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>我的画板</title>
     <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
     <canvas id=canvasId>
-        
+
     </canvas>
+    <div id="actions" class="actions">
+        <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-bfgq-tuola"></use>
+        </svg>
+        <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-sc"></use>
+        </svg>
+        <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-huabi"></use>
+        </svg>
+    </div>
     <script src="./main.js"></script>
+    <script src="//at.alicdn.com/t/font_1082355_jegn791qzr.js"></script>
 </body>
+
 </html>

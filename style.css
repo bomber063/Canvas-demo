@@ -4,9 +4,24 @@
 }
 
 canvas{
-    background:grey;
-    border:1px solid red;
+    background:green;
+    /* border:1px solid red; */
     display: block;
     /* width: 500px; */
     /* height:500px; */
+}
+
+
+.icon {
+    width: 1em; height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+ }
+
+.actions{
+    position: fixed;
+    left:0px;
+    bottom:0px;
+    cursor: pointer;
 }
