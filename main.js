@@ -74,52 +74,118 @@ window.onresize = function () {
 // }
 // //以上代码如果拖动过快就会出现间隙，因为没有通过划线的API, 也就是下面的context.lineTo
 
+listenToUser(canvas)
 
 using = false
-canvas.onmousedown = function (eee) {
-    // console.log(eee)
-    using = true
-    if (using === true) {
+
+function listenToUser(canvas){
+    if (document.body.ontouchstart !== undefined) { //检测触屏模式如果不等于underfined就说明支持ontouchstart，这叫特性检测。因为电脑并不一定不支持触屏，所以不能检测设备，而要检查特性。
+        //也可以通过'ontouchstart' in document.body是否等于true或者false来检查
+        //下面的是手机端的监听，手机上一般都是触摸式，ontouchstart、ontouchmove、ontouchend
+
+        // using = false  因为listenToUser每一if和else前面都有using = false，所以可以拿出去。
+        canvas.ontouchstart = function (eee) {
+            // console.log(eee)
+            using = true
+            if (using === true) {
+
+                context.beginPath()//如果在onmousedown的时候给处beginPath(),那么每次画图都会按照上一次结束的位置连接
+                // context.lineWidth = 5 因为这里没有lastpoint,起始位置是underfined，所以没有连接，这里的线宽也就没有作用
+                // var lastpoint={x:undefined,y:undefined} 可以不用定义lastpoint
+                // var nextpoint={x:eee.clientX,y:eee.clientY}
+                // lastpoint=nextpoint
+                // context.strokeStyle = "red"//颜色要在画的图形前面
+                // context.stroke()
+            }
+            else {
+                using = false
+            }
+        }
+        canvas.ontouchmove = function (eee) {
+            // using = true
+            if (using == true) {
+                context.lineWidth = 5
+                context.strokeStyle = "black"
+                // context.beginPath()//beginPath不可以放到这里，不然lastpoint一直都不可以变化
+                // context.moveTo(5+i*14,5);
+                // var lastpoint={x:undefined,y:undefined}  可以不用定义lastpoint
+                var nextpoint = { x: eee.touches[0].clientX, y: eee.touches[0].clientY }
+                // context.moveTo(lastpoint.x,lastpoint.y)
+                lastpoint = nextpoint//通过定义nextpoint，然后赋值给lastpoint,就可以不用定义lastpoint
+                // console.log(lastpoint)
+                // console.log(nextpoint)
+                // context.lineWidth = 5
+                context.lineTo(nextpoint.x, nextpoint.y)
+                context.stroke()//通过线条来绘制图形轮廓
+            }
+            else {
+                using = false
+            }
+        }
+        canvas.ontouchend = function (eee) {
+            using = false
+        }
+    }
+    else {
+        //检测触屏模式如果不等于underfined就说明支持ontouchstart，这叫特性检测。因为电脑并不一定不支持触屏，所以不能检测设备，而要检查特性。
+        //也可以通过'ontouchstart' in document.body是否等于true或者false来检查
+        //以下是PC端的监听,因为PC端才会有鼠标的onclick和onmousedown、onmousemove、onmouseup。
+        // using = false
+        canvas.onmousedown = function (eee) {
+            // console.log(eee)
+            using = true
+            if (using === true) {
+
+                context.beginPath()//如果在onmousedown的时候给处beginPath(),那么每次画图都会按照上一次结束的位置连接
+                // context.lineWidth = 5 因为这里没有lastpoint,起始位置是underfined，所以没有连接，这里的线宽也就没有作用
+                // var lastpoint={x:undefined,y:undefined} 可以不用定义lastpoint
+                // var nextpoint={x:eee.clientX,y:eee.clientY}
+                // lastpoint=nextpoint
+                // context.strokeStyle = "red"//颜色要在画的图形前面
+                // context.stroke()
+            }
+            else {
+                using = false
+            }
+        }
+
+
+        canvas.onmousemove = function (eee) {
+            // using = true 因为listenToUser每一if和else前面都有using = false，所以可以拿出去。
+            if (using == true) {
+                context.lineWidth = 5
+                context.strokeStyle = "black"
+                // context.beginPath()//beginPath不可以放到这里，不然lastpoint一直都不可以变化
+                // context.moveTo(5+i*14,5);
+                // var lastpoint={x:undefined,y:undefined}  可以不用定义lastpoint
+                var nextpoint = { x: eee.clientX, y: eee.clientY }
+                // context.moveTo(lastpoint.x,lastpoint.y)
+                lastpoint = nextpoint//通过定义nextpoint，然后赋值给lastpoint,就可以不用定义lastpoint
+                // console.log(lastpoint)
+                // console.log(nextpoint)
+                // context.lineWidth = 5
+                context.lineTo(nextpoint.x, nextpoint.y)
+                context.stroke()//通过线条来绘制图形轮廓
+            }
+            else {
+                using = false
+            }
+        }
+
+        canvas.onmouseup = function (eee) {
+            using = false
+        }
         
-        context.beginPath()
-        // context.lineWidth = 5 因为这里没有lastpoint,起始位置是underfined，所以没有连接，这里的线宽也就没有作用
-        // var lastpoint={x:undefined,y:undefined} 可以不用定义lastpoint
-        // var nextpoint={x:eee.clientX,y:eee.clientY}
-        // lastpoint=nextpoint
-        // context.strokeStyle = "red"//颜色要在画的图形前面
-        // context.stroke()
-    }
-    else {
-        using = false
     }
 }
 
 
-canvas.onmousemove = function (eee) {
-    // using = true
-    if (using == true) {
-        context.lineWidth = 5
-        context.strokeStyle = "red"
-        // context.beginPath()
-        // context.moveTo(5+i*14,5);
-        // var lastpoint={x:eee.clientX,y:eee.clientY}
-        // var lastpoint={x:undefined,y:undefined}  可以不用定义lastpoint
-
-        var nextpoint={x:eee.clientX,y:eee.clientY}
-        // context.moveTo(lastpoint.x,lastpoint.y)
-        lastpoint=nextpoint//通过定义nextpoint，然后赋值给lastpoint,就可以不用定义lastpoint
-        // console.log(lastpoint)
-        // console.log(nextpoint)
-        // context.lineWidth = 5
-        context.lineTo(nextpoint.x,nextpoint.y)
-        context.stroke()
-    }
-    else {
-        using = false
-    }
+clear.onclick=function clearcanvas(){
+    context.clearRect(0,0,canvas.width,canvas.height);  
 }
 
-canvas.onmouseup = function (eee) {
-    using = false
-}
+
+
+
+
 
