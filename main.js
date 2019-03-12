@@ -30,7 +30,7 @@ window.onresize = function () {
 
 
 
-// context.fillStyle = "grey"//颜色要在画的图形前面
+// context.fillStyle = "grey"//颜色要在画的图形前面 画图形的颜色填写，划线的颜色修改是ontext.strokeStyle
 // context.fillRect(0, 0, 500, 500) 这里的矩形是从x,y坐标开始画，然后长宽分别为50
 
 // canvas.onclick=function(eee){
@@ -134,11 +134,12 @@ function listenToUser(canvas) {
             if (using) {//在使用状态
     
                 if (eraserUsing) {//如果同时满足橡皮擦状态就可以开始擦除
-                    context.clearRect(eee.touches[0].clientX, eee.touches[0].clientY, 10, 10);
+                    context.clearRect(eee.touches[0].clientX-5, eee.touches[0].clientY-5, 10, 10);
+                    //正方形是按照左上角画图的，所以这里给x,y都减少5，也就是长宽的一半
                 }
                 else if(penUsing) {//如果同时满足用笔状态就可以开始用笔
                     context.lineWidth = 5
-                    context.strokeStyle = "black"
+                    // context.strokeStyle = "black"//划线的颜色修改,画图形的颜色修改是context.fillStyle
                     // context.beginPath()//beginPath不可以放到这里，不然lastpoint一直都不可以变化
                     // context.moveTo(5+i*14,5);
                     // var lastpoint={x:undefined,y:undefined}  可以不用定义lastpoint
@@ -197,11 +198,12 @@ function listenToUser(canvas) {
         if (using) {//在使用状态
 
             if (eraserUsing) {//如果同时满足橡皮擦状态就可以开始擦除
-                context.clearRect(eee.clientX, eee.clientY, 10, 10);
+                context.clearRect(eee.clientX-5, eee.clientY-5, 10, 10);
+                //正方形是按照左上角画图的，所以这里给x,y都减少5，也就是长宽的一半
             }
             else if(penUsing) {//如果同时满足用笔状态就可以开始用笔
                 context.lineWidth = 5
-                context.strokeStyle = "black"
+                // context.strokeStyle = "red"//划线的颜色修改,画图形的颜色修改是context.fillStyle
                 // context.beginPath()//beginPath不可以放到这里，不然lastpoint一直都不可以变化
                 // context.moveTo(5+i*14,5);
                 // var lastpoint={x:undefined,y:undefined}  可以不用定义lastpoint
@@ -234,7 +236,41 @@ function listenToUser(canvas) {
 clear.onclick = function clearcanvas() {
     context.clearRect(0, 0, canvas.width, canvas.height);
 }
+//上面的函数是清除整个画板
 
+//改变划线颜色
+
+green.onclick=function(){
+    context.strokeStyle = "green"
+    green.className='green coloractive'
+    yellow.className='yellow'
+    blue.className='blue'
+    // green.classList.add('coloractive')
+    // yellow.classList.remove('coloractive')
+    // blue.classList.remove('coloractive')
+
+}
+
+yellow.onclick=function(){
+    context.strokeStyle = "yellow"
+    green.className='green'
+    yellow.className='yellow coloractive'
+    blue.className='blue'
+    // green.classList.remove('coloractive')
+    // yellow.classList.add('coloractive')
+    // blue.classList.remove('coloractive')
+}
+
+blue.onclick=function(){
+    context.strokeStyle = "blue"
+    green.className='green'
+    yellow.className='yellow'
+    blue.className='blue coloractive'
+    // green.classList.remove('coloractive')
+    // yellow.classList.remove('coloractive')
+    // blue.classList.add('coloractive')
+}
+//以上的代码green.className可以替换为classList.add('blue')和green.classList.remove('blue')
 
 
 

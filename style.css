@@ -21,10 +21,15 @@ canvas{
     fill: currentColor;
     overflow: hidden;
     margin: 0px 10px;
+    transition: all 0.5s;
+    /* 过度变大,一般放到原来的上面可以保持变大或者恢复都可以过度 */
  }
 
 .active.icon{
-    font-size: 1.4em;
+    /* font-size: 1.4em; */
+    transform: scale(1.2);
+    /* 也可以用font-size,这里用transform scale(1.2)是放大1.2倍 */
+    color:red;
 }
 
 
@@ -36,3 +41,66 @@ canvas{
     font-size: 2em;
     margin:5px 20px;
 }
+
+#clearwrap{
+    position: fixed;
+    left:0px;
+    bottom:0px;
+    cursor: pointer;
+    font-size: 2em;
+    margin:5px 20px;
+}
+
+ol{
+    position: fixed;
+    left:29px;
+    top:55px;
+    list-style: none;
+}
+
+ol li{
+    margin:10px 0px;
+}
+
+.green{
+    border:1px solid green;
+    background: green;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.4s;
+}
+
+.yellow{
+    border:1px solid yellow;
+    background: yellow;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.4s;
+}
+
+.blue{
+    border:1px solid blue;
+    background: blue;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.4s;
+}
+
+ol .blue.coloractive{
+    box-shadow: 0px 0px 2px 1px blue;
+}
+
+ol .yellow.coloractive{
+    box-shadow: 0px 0px 2px 1px yellow;
+}
+
+ol .green.coloractive{
+    box-shadow: 0px 0px 2px 1px green;
+}
+
