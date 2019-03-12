@@ -4,7 +4,10 @@
 }
 
 canvas{
-    background:green;
+    /* background:green; */
+    /* background-color: transparent; */
+    background-color: rgba(166, 218, 220, 0.9);
+    /* background: hsla(50, 33%, 25%, 0.75) */
     /* border:1px solid red; */
     display: block;
     /* width: 500px; */
@@ -17,11 +20,19 @@ canvas{
     vertical-align: -0.15em;
     fill: currentColor;
     overflow: hidden;
+    margin: 0px 10px;
  }
+
+.active.icon{
+    font-size: 1.4em;
+}
+
 
 .actions{
     position: fixed;
     left:0px;
-    bottom:0px;
+    top:0px;
     cursor: pointer;
+    font-size: 2em;
+    margin:5px 20px;
 }

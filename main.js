@@ -78,7 +78,35 @@ listenToUser(canvas)
 
 using = false
 
-function listenToUser(canvas){
+eraserUsing = false
+
+penUsing = false
+
+eraser.onclick = function () { //onclick是兼容触屏和鼠标点击的,只要是点了都算。
+    // console.log(eraser.className.baseVal)
+    // eraser.className.baseVal="icon active" //这里可能是用到SVG的原因，所以className后面跟了.baseVal
+    eraser.classList.add('active')//用上面的也可以实现效果
+    pen.classList.remove('active')
+    eraserUsing = true
+    penUsing = false
+}
+
+
+pen.onclick = function () {
+    // pen.className.baseVal="icon active" //这里可能是用到SVG的原因，所以className后面跟了.baseVal
+    pen.classList.add('active')//用上面的也可以实现效果
+    eraser.classList.remove('active')
+    penUsing = true
+    eraserUsing = false
+}
+
+
+
+// eraser.className='icon active'
+// pen.className='icon'
+
+
+function listenToUser(canvas) {
     if (document.body.ontouchstart !== undefined) { //检测触屏模式如果不等于underfined就说明支持ontouchstart，这叫特性检测。因为电脑并不一定不支持触屏，所以不能检测设备，而要检查特性。
         //也可以通过'ontouchstart' in document.body是否等于true或者false来检查
         //下面的是手机端的监听，手机上一般都是触摸式，ontouchstart、ontouchmove、ontouchend
@@ -98,30 +126,44 @@ function listenToUser(canvas){
                 // context.stroke()
             }
             else {
-                using = false
+                context.beginPath()//这里使重新橡皮擦开始的地方
             }
         }
         canvas.ontouchmove = function (eee) {
-            // using = true
-            if (using == true) {
-                context.lineWidth = 5
-                context.strokeStyle = "black"
-                // context.beginPath()//beginPath不可以放到这里，不然lastpoint一直都不可以变化
-                // context.moveTo(5+i*14,5);
-                // var lastpoint={x:undefined,y:undefined}  可以不用定义lastpoint
-                var nextpoint = { x: eee.touches[0].clientX, y: eee.touches[0].clientY }
-                // context.moveTo(lastpoint.x,lastpoint.y)
-                lastpoint = nextpoint//通过定义nextpoint，然后赋值给lastpoint,就可以不用定义lastpoint
-                // console.log(lastpoint)
-                // console.log(nextpoint)
-                // context.lineWidth = 5
-                context.lineTo(nextpoint.x, nextpoint.y)
-                context.stroke()//通过线条来绘制图形轮廓
+            // using = true 因为listenToUser每一if和else前面都有using = false，所以可以拿出去。
+            if (using) {//在使用状态
+    
+                if (eraserUsing) {//如果同时满足橡皮擦状态就可以开始擦除
+                    context.clearRect(eee.touches[0].clientX, eee.touches[0].clientY, 10, 10);
+                }
+                else if(penUsing) {//如果同时满足用笔状态就可以开始用笔
+                    context.lineWidth = 5
+                    context.strokeStyle = "black"
+                    // context.beginPath()//beginPath不可以放到这里，不然lastpoint一直都不可以变化
+                    // context.moveTo(5+i*14,5);
+                    // var lastpoint={x:undefined,y:undefined}  可以不用定义lastpoint
+                    var nextpoint = { x: eee.touches[0].clientX, y: eee.touches[0].clientY }
+                    //ontouchmove的所在点与onmousemove不同,
+                    //ontouchmove是eee.touches[0].clientX
+                    //onmousemove是eee.clientX
+                    // context.moveTo(lastpoint.x,lastpoint.y)
+                    lastpoint = nextpoint//通过定义nextpoint，然后赋值给lastpoint,就可以不用定义lastpoint
+                    // console.log(lastpoint)
+                    // console.log(nextpoint)
+                    // context.lineWidth = 5
+                    context.lineTo(nextpoint.x, nextpoint.y)
+                    context.stroke()//通过线条来绘制图形轮廓
+                }
+                else{//只有使用状态，但是橡皮擦状态和用笔状态都没有就什么都不做
+                    using = false
+                }
+    
             }
             else {
                 using = false
             }
         }
+
         canvas.ontouchend = function (eee) {
             using = false
         }
@@ -135,7 +177,6 @@ function listenToUser(canvas){
             // console.log(eee)
             using = true
             if (using === true) {
-
                 context.beginPath()//如果在onmousedown的时候给处beginPath(),那么每次画图都会按照上一次结束的位置连接
                 // context.lineWidth = 5 因为这里没有lastpoint,起始位置是underfined，所以没有连接，这里的线宽也就没有作用
                 // var lastpoint={x:undefined,y:undefined} 可以不用定义lastpoint
@@ -144,15 +185,21 @@ function listenToUser(canvas){
                 // context.strokeStyle = "red"//颜色要在画的图形前面
                 // context.stroke()
             }
-            else {
-                using = false
-            }
+            else{
+                // context.clearRect(eee.clientX,eee.clientY,10,10)
+                context.beginPath()//这里使重新橡皮擦开始的地方
         }
+    }
 
 
-        canvas.onmousemove = function (eee) {
-            // using = true 因为listenToUser每一if和else前面都有using = false，所以可以拿出去。
-            if (using == true) {
+    canvas.onmousemove = function (eee) {
+        // using = true 因为listenToUser每一if和else前面都有using = false，所以可以拿出去。
+        if (using) {//在使用状态
+
+            if (eraserUsing) {//如果同时满足橡皮擦状态就可以开始擦除
+                context.clearRect(eee.clientX, eee.clientY, 10, 10);
+            }
+            else if(penUsing) {//如果同时满足用笔状态就可以开始用笔
                 context.lineWidth = 5
                 context.strokeStyle = "black"
                 // context.beginPath()//beginPath不可以放到这里，不然lastpoint一直都不可以变化
@@ -167,21 +214,25 @@ function listenToUser(canvas){
                 context.lineTo(nextpoint.x, nextpoint.y)
                 context.stroke()//通过线条来绘制图形轮廓
             }
-            else {
+            else{//只有使用状态，但是橡皮擦状态和用笔状态都没有就什么都不做
                 using = false
             }
-        }
 
-        canvas.onmouseup = function (eee) {
+        }
+        else {
             using = false
         }
-        
+    }
+
+    canvas.onmouseup = function (eee) {
+        using = false
+        }
     }
 }
 
 
-clear.onclick=function clearcanvas(){
-    context.clearRect(0,0,canvas.width,canvas.height);  
+clear.onclick = function clearcanvas() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 
