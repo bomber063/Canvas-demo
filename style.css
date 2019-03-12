@@ -94,13 +94,16 @@ ol li{
 
 ol .blue.coloractive{
     box-shadow: 0px 0px 2px 1px blue;
+    transform: scale(1.1);
 }
 
 ol .yellow.coloractive{
     box-shadow: 0px 0px 2px 1px yellow;
+    transform: scale(1.1);
 }
 
 ol .green.coloractive{
     box-shadow: 0px 0px 2px 1px green;
+    transform: scale(1.1);
 }
 
