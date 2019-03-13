@@ -332,3 +332,17 @@ clearwrap.onclick=function(){
     // clearwrap.className='clearwrap clearactive'
 }
 
+
+//下面的代码是用来保存的点击监听
+download.onclick=function(){
+    var url=canvas.toDataURL('./image/png')
+    var a=document.createElement('a')
+    document.body.appendChild(a)
+    a.href=url
+    a.download='我的画'
+    a.target='_blank'
+    //这上面是创建了一个a标签，并且插入到body里面，随便a标签在哪都可以
+    a.click()//创建之后就需要点一下这个a标签就OK啦
+    document.body.removeChild(a)//创建a然后点击一下就可以保存之后，然后移除掉a即可，这里不移除掉也影响
+}
+
