@@ -133,37 +133,37 @@ ol .green.coloractive{
 }
 
 .thin1{
-    width: 100px;
+    width: 50px;
     height:1px;
     /* border: 1px solid red; */
     position: fixed;
     background: black;
     top:10px;
-    right:120px;
+    right:20px;
     cursor: pointer;
     transition: all 0.4s;
 }
 
 .thin{
-    width: 100px;
+    width: 50px;
     height:5px;
     /* border: 1px solid red; */
     position: fixed;
     background: black;
     top:30px;
-    right:120px;
+    right:20px;
     cursor: pointer;
     transition: all 0.4s;
 }
 
 .thick{
-    width: 100px;
+    width: 50px;
     height:10px;
     /* border: 1px solid red; */
     position: fixed;
     background: black;
     top:50px;
-    right:120px;
+    right:20px;
     cursor: pointer;
     transition: all 0.4s;
 }
