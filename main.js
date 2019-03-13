@@ -78,7 +78,7 @@ using = false
 
 eraserUsing = false
 
-penUsing = false
+penUsing = true
 
 eraser.onclick = function () { //onclick是兼容触屏和鼠标点击的,只要是点了都算。
     // console.log(eraser.className.baseVal)
