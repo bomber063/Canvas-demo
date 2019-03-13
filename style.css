@@ -42,14 +42,24 @@ canvas{
     margin:5px 20px;
 }
 
-#clearwrap{
+.clearwrap{
     position: fixed;
     left:0px;
     bottom:0px;
     cursor: pointer;
     font-size: 2em;
     margin:5px 20px;
+    /* background-image:linear-gradient(135deg, transparent 25%, black 25%, black 50%, transparent 50%, transparent 75%, black 75%, black);
+    background-size:20px 20px; */
+
 }
+
+.clearwrap.clearactive{
+    animation:transform-2 1s alternate;
+    /* 1s是指持续时间为1s */
+    /* alternate 是animation-direction属性的一个值，代表动画交替反向运行，反向运行时，动画按步后退，同时，带时间功能的函数也反向，比如，ease-in 在反向时成为ease-out。计数取决于开始时是奇数迭代还是偶数迭代*/
+}
+
 
 ol{
     position: fixed;
@@ -92,6 +102,21 @@ ol li{
     transition: all 0.4s;
 }
 
+.black{
+    border:1px solid black;
+    background: black;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.4s;
+}
+
+ol .black.coloractive{
+    box-shadow: 0px 0px 2px 1px black;
+    transform: scale(1.1);
+}
+
 ol .blue.coloractive{
     box-shadow: 0px 0px 2px 1px blue;
     transform: scale(1.1);
@@ -107,3 +132,67 @@ ol .green.coloractive{
     transform: scale(1.1);
 }
 
+.thin1{
+    width: 100px;
+    height:1px;
+    /* border: 1px solid red; */
+    position: fixed;
+    background: black;
+    top:10px;
+    right:120px;
+    cursor: pointer;
+    transition: all 0.4s;
+}
+
+.thin{
+    width: 100px;
+    height:5px;
+    /* border: 1px solid red; */
+    position: fixed;
+    background: black;
+    top:30px;
+    right:120px;
+    cursor: pointer;
+    transition: all 0.4s;
+}
+
+.thick{
+    width: 100px;
+    height:10px;
+    /* border: 1px solid red; */
+    position: fixed;
+    background: black;
+    top:50px;
+    right:120px;
+    cursor: pointer;
+    transition: all 0.4s;
+}
+
+ol .thin1.sizeactive{
+    box-shadow: 0px 0px 2px 1px grey;
+    transform: scale(1.1);
+}
+
+ol .thin.sizeactive{
+    box-shadow: 0px 0px 2px 1px grey;
+    transform: scale(1.1);
+}
+
+ol .thick.sizeactive{
+    box-shadow: 0px 0px 2px 1px grey;
+    transform: scale(1.1);
+}
+
+/* @keyframes transform-2{
+    from{transform:scale(1);color:red;}
+    to{transform:scale(1.5);color:red;}
+} */
+
+@keyframes transform-2{
+    0%{transform:scale(1);color:red;}
+    50%{transform:scale(1.5);}
+    100%{transform:scale(1);color:red;}
+}
+
+/* 动画的关键帧，关键帧名字是transform-2，可以用from to，from to只能有两种状态起点和终点，相当于0%和100%,如果用百分比就可以有很多种状态 */
+/* 第二个我用到了0%，50%，100%三种状态     */

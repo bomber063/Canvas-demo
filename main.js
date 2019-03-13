@@ -28,8 +28,6 @@ window.onresize = function () {
 }
 //以上代码是窗口变化后,画图的大小与canvas大小相同，要不然会自动放大的
 
-
-
 // context.fillStyle = "grey"//颜色要在画的图形前面 画图形的颜色填写，划线的颜色修改是ontext.strokeStyle
 // context.fillRect(0, 0, 500, 500) 这里的矩形是从x,y坐标开始画，然后长宽分别为50
 
@@ -138,8 +136,8 @@ function listenToUser(canvas) {
                     //正方形是按照左上角画图的，所以这里给x,y都减少5，也就是长宽的一半
                 }
                 else if(penUsing) {//如果同时满足用笔状态就可以开始用笔
-                    context.lineWidth = 5
-                    // context.strokeStyle = "black"//划线的颜色修改,画图形的颜色修改是context.fillStyle
+                    // context.lineWidth = 5//因为后面需要改变线宽，所以这里不能限定死了线宽
+                    // context.strokeStyle = "black"//划线的颜色修改,画图形的颜色修改是context.fillStyle，因为后面需要改变颜色，所以这里不能限定死了颜色
                     // context.beginPath()//beginPath不可以放到这里，不然lastpoint一直都不可以变化
                     // context.moveTo(5+i*14,5);
                     // var lastpoint={x:undefined,y:undefined}  可以不用定义lastpoint
@@ -202,8 +200,8 @@ function listenToUser(canvas) {
                 //正方形是按照左上角画图的，所以这里给x,y都减少5，也就是长宽的一半
             }
             else if(penUsing) {//如果同时满足用笔状态就可以开始用笔
-                context.lineWidth = 5
-                // context.strokeStyle = "red"//划线的颜色修改,画图形的颜色修改是context.fillStyle
+                // context.lineWidth = 5//因为后面需要改变线宽，所以这里不能限定死了线宽
+                // context.strokeStyle = "red"//划线的颜色修改,画图形的颜色修改是context.fillStyle,因为后面需要改变颜色，所以这里不能限定死了颜色
                 // context.beginPath()//beginPath不可以放到这里，不然lastpoint一直都不可以变化
                 // context.moveTo(5+i*14,5);
                 // var lastpoint={x:undefined,y:undefined}  可以不用定义lastpoint
@@ -240,39 +238,97 @@ clear.onclick = function clearcanvas() {
 
 //改变划线颜色
 
+black.onclick=function(){
+    context.strokeStyle = "black"//因为上下文是全局变量，也就是context在最外面,所以只需要修改context的颜色即可。
+    black.className='black coloractive'
+    green.className='green'
+    yellow.className='yellow'
+    blue.className='blue'
+    //black.classList.add('coloractive')
+    // green.classList.remove('coloractive')
+    // yellow.classList.remove('coloractive')
+    // blue.classList.remove('coloractive')
+}
+
 green.onclick=function(){
-    context.strokeStyle = "green"
+    context.strokeStyle = "green"//因为上下文是全局变量，也就是context在最外面,所以只需要修改context的颜色即可。
     green.className='green coloractive'
     yellow.className='yellow'
     blue.className='blue'
+    black.className='black'
     // green.classList.add('coloractive')
     // yellow.classList.remove('coloractive')
     // blue.classList.remove('coloractive')
-
+    //black.classList.remove('coloractive')
 }
 
 yellow.onclick=function(){
-    context.strokeStyle = "yellow"
+    context.strokeStyle = "yellow"//因为上下文是全局变量，也就是context在最外面,所以只需要修改context的颜色即可。
     green.className='green'
     yellow.className='yellow coloractive'
     blue.className='blue'
+    black.className='black'
     // green.classList.remove('coloractive')
     // yellow.classList.add('coloractive')
     // blue.classList.remove('coloractive')
+    //black.classList.remove('coloractive')
 }
 
 blue.onclick=function(){
-    context.strokeStyle = "blue"
+    context.strokeStyle = "blue"//因为上下文是全局变量，也就是context在最外面,所以只需要修改context的颜色即可。
     green.className='green'
     yellow.className='yellow'
     blue.className='blue coloractive'
+    black.className='black'
     // green.classList.remove('coloractive')
     // yellow.classList.remove('coloractive')
     // blue.classList.add('coloractive')
+    //black.classList.remove('coloractive')
 }
 //以上的代码green.className可以替换为classList.add('blue')和green.classList.remove('blue')
 
 
+//以下的代码是改变线条粗细
+
+thin1.onclick=function(){
+    context.lineWidth=1//因为上下文是全局变量，也就是context在最外面,所以只需要修改context的宽度即可。
+    thin1.className='thin1 sizeactive'
+    thin.className='thin'
+    thick.className='thick'
+    // thick.classList.remove('coloractive')
+    // thin.classList.add('coloractive')
+}
+
+thin.onclick=function(){
+    context.lineWidth=5//因为上下文是全局变量，也就是context在最外面,所以只需要修改context的宽度即可。
+    thin1.className='thin1'
+    thin.className='thin sizeactive'
+    thick.className='thick'
+    // thick.classList.remove('coloractive')
+    // thin.classList.add('coloractive')
+}
+
+thick.onclick=function(){
+    context.lineWidth=10//因为上下文是全局变量，也就是context在最外面,所以只需要修改context的宽度即可。
+    thin1.className='thin1'
+    thick.className='thick sizeactive'
+    thin.className='thin'
+    // thick.classList.remove('coloractive')
+    // thin.classList.add('coloractive')
+}
 
 
+// 颜色可以不给定值yellow,blue,black,green。
+// 线条也可以不给定值1,5,10
+
+// 可以定义一个全局变量color,在onmousemove把color赋值给context.strokeStyle，然后在点击监听的时候把某一种颜色比如'yellow'赋值给color，然后把color再赋值给context.strokeStyle来改变，这样默认的颜色就可以自己来设定。系统默认颜色是黑色。
+// 可以定义一个全局变量size,在onmousemove把size赋值给context.lineWidth，然后在点击监听的时候把某一种粗细比如'10'赋值给size，然后把size再赋值给context.lineWidth来改变，这样默认的粗细就可以自己来设定。系统默认粗细是1。
+
+clearwrap.onclick=function(){
+    clearwrap.className='clearwrap clearactive'
+    setTimeout(function(){ 
+        clearwrap.className='clearwrap'; 
+    }, 1000);//这里的setTimeout后面内容意思是代表1000ms后执行函数function(){ clearwrap.className='clearwrap';} 
+    // clearwrap.className='clearwrap clearactive'
+}
 
