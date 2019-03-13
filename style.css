@@ -12,6 +12,10 @@ canvas{
     display: block;
     /* width: 500px; */
     /* height:500px; */
+    position: fixed; 
+    /* 增加position:fixed是为了让在手机触屏上面保持画布区域不到处乱动，加不加top和left都不影响，方方上课的时候加了top和left */
+    /* top:100px; */
+    /* left:100px; */
 }
 
 
